@@ -1,64 +1,70 @@
-import json
+from flask import Flask, request, jsonify
 import requests
-from http.server import BaseHTTPRequestHandler
+import os
 
-class handler(BaseHTTPRequestHandler):
-    def do_POST(self):
-        # 🔐 ВСТАВЬ СЮДА НОВЫЙ ТОКЕН
-        TOKEN = 'f9LHodD0cOLOZI8Ch2Q7MszISpH1nlj_MHzijGbHpu0cJULDfQhezUL6_33YwQheq3AmcOOSWfqiABnK2ew5'
-        WEB_APP_URL = 'https://atoez.github.io/orehizakazi/'
-        API_URL = 'https://api.max.ru/bot'
-        
-        # Читаем данные от MAX
-        content_length = int(self.headers.get('Content-Length'))
-        post_data = self.rfile.read(content_length)
-        data = json.loads(post_data.decode('utf-8'))
-        
-        # Проверяем команду /start
-        if data.get('text') == '/start':
-            chat_id = data['chat']['id']
-            self.send_welcome(chat_id, TOKEN, WEB_APP_URL, API_URL)
-        
-        # Отвечаем OK
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-        self.wfile.write(json.dumps({'ok': True}).encode())
+app = Flask(__name__)
+
+TOKEN = 'f9L...ew5'  # Твой полный токен
+WEB_APP_URL = 'https://atoez.github.io/orehizakazi/'
+API_URL = 'https://platform-api.max.ru'
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    data = request.json
+    print(f"Получено событие: {data}")
     
-    def send_welcome(self, chat_id, token, web_app_url, api_url):
-        message = """🥜 Добро пожаловать в «Сладкий уголок»!
+    # Событие когда пользователь нажал /start
+    if data.get('type') == 'bot_started':
+        user_id = data['payload']['user_id']
+        send_welcome(user_id)
+    
+    # Событие когда пользователь написал сообщение
+    elif data.get('type') == 'message_created':
+        user_id = data['payload']['user_id']
+        text = data['payload'].get('text', '')
+        
+        if text == '/start':
+            send_welcome(user_id)
+    
+    return jsonify({'success': True})
+
+def send_welcome(user_id):
+    url = f'{API_URL}/messages?user_id={user_id}'
+    
+    message = """🥜 Добро пожаловать в «Сладкий уголок»!
 
 🌰 Орехи, сухофрукты и сладости в Кирове
-✨ Только свежие продукты
 🚚 Доставка за 24 часа
-
 💰 Цены от 33₽ за 100гр
 
-📍 Адрес: Кирово-Чепецкий район, ул. Ботаническая д.6
-
-👇 Нажмите кнопку чтобы заказать:
+👇 Нажмите кнопку чтобы открыть каталог:
 """
-        
-        data = {
-            'chat_id': chat_id,
-            'text': message,
-            'reply_markup': {
-                'keyboard': [[{
-                    'text': '🛒 Открыть каталог',
-                    'web_app': {'url': web_app_url}
-                }]],
-                'resize_keyboard': True
-            }
-        }
-        
-        try:
-            url = f'{api_url}/{token}/sendMessage'
-            requests.post(url, json=data)
-        except Exception as e:
-            print(f'Ошибка: {e}')
     
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/plain')
-        self.end_headers()
-        self.wfile.write(b'Bot is running! ✅')
+    data = {
+        'text': message,
+        'attachments': [{
+            'type': 'inline_keyboard',
+            'payload': {
+                'buttons': [[{
+                    'type': 'web_app',
+                    'text': '🛒 Открыть каталог',
+                    'url': WEB_APP_URL
+                }]]
+            }
+        }]
+    }
+    
+    headers = {
+        'Authorization': TOKEN,
+        'Content-Type': 'application/json'
+    }
+    
+    response = requests.post(url, json=data, headers=headers)
+    print(f"Ответ API: {response.json()}")
+
+@app.route('/')
+def index():
+    return 'Бот работает! ✅'
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
