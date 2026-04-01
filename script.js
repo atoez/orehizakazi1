@@ -1,29 +1,229 @@
 const products = [
-    { id: 1, name: 'Грецкий орех в трюфеле', price: 1100, category: 'walnut', image: 'assets/walnut-truffle.jpg', emoji: '🌰', weights: ['1 кг'] },
-    { id: 2, name: 'Грецкий орех половинки', price: 770, category: 'walnut', image: 'assets/walnut-halves.jpg', emoji: '🌰', weights: ['1 кг'] },
-    { id: 3, name: 'Грецкий орех в скорлупе', price: 330, category: 'walnut', image: 'assets/walnut-shell.jpg', emoji: '🌰', weights: ['500 г', '1 кг'] },
-    { id: 4, name: 'Миндаль в шоколаде', price: 770, category: 'almond', image: 'assets/almond-chocolate.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 5, name: 'Миндаль', price: 950, category: 'almond', image: 'assets/almond.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 6, name: 'Кешью в белом шоколаде', price: 770, category: 'cashew', image: 'assets/cashew-white.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 7, name: 'Кешью в цветной глазури', price: 880, category: 'cashew', image: 'assets/cashew-color.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 8, name: 'Кешью в специях барбекю', price: 1320, category: 'cashew', image: 'assets/cashew-bbq.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 9, name: 'Кешью', price: 1050, category: 'cashew', image: 'assets/cashew.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 10, name: 'Арахис в кунжуте', price: 400, category: 'peanut', image: 'assets/peanut-sesame.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 11, name: 'Арахис в специях барбекю', price: 600, category: 'peanut', image: 'assets/peanut-bbq.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 12, name: 'Арахис', price: 380, category: 'peanut', image: 'assets/peanut.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 13, name: 'Изюм Малояр', price: 400, category: 'raisin', image: 'assets/raisin-maloyar.jpg', emoji: '🍇', weights: ['1 кг'] },
-    { id: 14, name: 'Изюм Голд', price: 660, category: 'raisin', image: 'assets/raisin-gold.jpg', emoji: '🍇', weights: ['1 кг'] },
-    { id: 15, name: 'Изюм в белом шоколаде', price: 660, category: 'raisin', image: 'assets/raisin-white-choc.jpg', emoji: '🍇', weights: ['1 кг'] },
-    { id: 16, name: 'Финики без косточек', price: 450, category: 'dates', image: 'assets/dates.jpg', emoji: '🌴', weights: ['500 г', '1 кг'] },
-    { id: 17, name: 'Вишня сушеная', price: 440, category: 'dried', image: 'assets/cherry-dried.jpg', emoji: '🍒', weights: ['500 г'] },
-    { id: 18, name: 'Курага', price: 660, category: 'dried', image: 'assets/apricot.jpg', emoji: '🍑', weights: ['1 кг'] },
-    { id: 19, name: 'Фисташки Иран', price: 1250, category: 'pistachio', image: 'assets/pistachio.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 20, name: 'Макадамия', price: 700, category: 'macadamia', image: 'assets/macadamia.jpg', emoji: '🥜', weights: ['1 кг'] },
-    { id: 21, name: 'Семя тыквы', price: 550, category: 'seeds', image: 'assets/pumpkin-seeds.jpg', emoji: '🌻', weights: ['1 кг'] },
-    { id: 22, name: 'Кукуруза попкорн в специях', price: 660, category: 'snacks', image: 'assets/popcorn.jpg', emoji: '🍿', weights: ['1 кг'] },
-    { id: 23, name: 'Орехи в меде', price: 550, category: 'honey', image: 'assets/nuts-honey.jpg', emoji: '🍯', weights: ['500 г', '1 кг'] },
-    { id: 24, name: 'Конфеты ассорти', price: 770, category: 'candy', image: 'assets/candy-assorti.jpg', emoji: '🍬', weights: ['500 г', '1 кг'] },
-    { id: 25, name: 'Смесь ореховая', price: 770, category: 'mix', image: 'assets/nuts-mix.jpg', emoji: '🥗', weights: ['1 кг'] },
+    { 
+        id: 1, 
+        name: 'Грецкий орех в трюфеле', 
+        price: 1100, 
+        category: 'walnut',
+        image: 'assets/walnut-truffle.jpg',
+        emoji: '🌰',
+        weights: ['1 кг']
+    },
+    { 
+        id: 2, 
+        name: 'Грецкий орех половинки', 
+        price: 770, 
+        category: 'walnut',
+        image: 'assets/walnut-halves.jpg',
+        emoji: '🌰',
+        weights: ['1 кг']
+    },
+    { 
+        id: 3, 
+        name: 'Грецкий орех в скорлупе', 
+        price: 330, 
+        category: 'walnut',
+        image: 'assets/walnut-shell.jpg',
+        emoji: '🌰',
+        weights: ['100 г', '250 г', '500 г', '1 кг']  // ВЫБОР!
+    },
+    { 
+        id: 4, 
+        name: 'Миндаль в шоколаде', 
+        price: 770, 
+        category: 'almond',
+        image: 'assets/almond-chocolate.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 5, 
+        name: 'Миндаль', 
+        price: 950, 
+        category: 'almond',
+        image: 'assets/almond.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 6, 
+        name: 'Кешью в белом шоколаде', 
+        price: 770, 
+        category: 'cashew',
+        image: 'assets/cashew-white.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 7, 
+        name: 'Кешью в цветной глазури', 
+        price: 880, 
+        category: 'cashew',
+        image: 'assets/cashew-color.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 8, 
+        name: 'Кешью в специях барбекю', 
+        price: 1320, 
+        category: 'cashew',
+        image: 'assets/cashew-bbq.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 9, 
+        name: 'Кешью', 
+        price: 1050, 
+        category: 'cashew',
+        image: 'assets/cashew.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 10, 
+        name: 'Арахис в кунжуте', 
+        price: 400, 
+        category: 'peanut',
+        image: 'assets/peanut-sesame.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 11, 
+        name: 'Арахис в специях барбекю', 
+        price: 600, 
+        category: 'peanut',
+        image: 'assets/peanut-bbq.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 12, 
+        name: 'Арахис', 
+        price: 380, 
+        category: 'peanut',
+        image: 'assets/peanut.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 13, 
+        name: 'Изюм Малояр', 
+        price: 400, 
+        category: 'raisin',
+        image: 'assets/raisin-maloyar.jpg',
+        emoji: '🍇',
+        weights: ['1 кг']
+    },
+    { 
+        id: 14, 
+        name: 'Изюм Голд', 
+        price: 660, 
+        category: 'raisin',
+        image: 'assets/raisin-gold.jpg',
+        emoji: '🍇',
+        weights: ['1 кг']
+    },
+    { 
+        id: 15, 
+        name: 'Изюм в белом шоколаде', 
+        price: 660, 
+        category: 'raisin',
+        image: 'assets/raisin-white-choc.jpg',
+        emoji: '🍇',
+        weights: ['1 кг']
+    },
+    { 
+        id: 16, 
+        name: 'Финики без косточек', 
+        price: 450, 
+        category: 'dates',
+        image: 'assets/dates.jpg',
+        emoji: '🌴',
+        weights: ['100 г', '250 г', '500 г', '1 кг']  // ВЫБОР!
+    },
+    { 
+        id: 17, 
+        name: 'Вишня сушеная', 
+        price: 440, 
+        category: 'dried',
+        image: 'assets/cherry-dried.jpg',
+        emoji: '🍒',
+        weights: ['100 г', '250 г', '500 г', '1 кг']  // ВЫБОР!
+    },
+    { 
+        id: 18, 
+        name: 'Курага', 
+        price: 660, 
+        category: 'dried',
+        image: 'assets/apricot.jpg',
+        emoji: '🍑',
+        weights: ['1 кг']
+    },
+    { 
+        id: 19, 
+        name: 'Фисташки Иран', 
+        price: 1250, 
+        category: 'pistachio',
+        image: 'assets/pistachio.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 20, 
+        name: 'Макадамия', 
+        price: 700, 
+        category: 'macadamia',
+        image: 'assets/macadamia.jpg',
+        emoji: '🥜',
+        weights: ['1 кг']
+    },
+    { 
+        id: 21, 
+        name: 'Семя тыквы', 
+        price: 550, 
+        category: 'seeds',
+        image: 'assets/pumpkin-seeds.jpg',
+        emoji: '🌻',
+        weights: ['1 кг']
+    },
+    { 
+        id: 22, 
+        name: 'Кукуруза попкорн в специях', 
+        price: 660, 
+        category: 'snacks',
+        image: 'assets/popcorn.jpg',
+        emoji: '🍿',
+        weights: ['1 кг']
+    },
+    { 
+        id: 23, 
+        name: 'Орехи в меде', 
+        price: 550, 
+        category: 'honey',
+        image: 'assets/nuts-honey.jpg',
+        emoji: '🍯',
+        weights: ['100 г', '250 г', '500 г', '1 кг']  // ВЫБОР!
+    },
+    { 
+        id: 24, 
+        name: 'Конфеты ассорти', 
+        price: 770, 
+        category: 'candy',
+        image: 'assets/candy-assorti.jpg',
+        emoji: '🍬',
+        weights: ['100 г', '250 г', '500 г', '1 кг']  // ВЫБОР!
+    },
+    { 
+        id: 25, 
+        name: 'Смесь ореховая', 
+        price: 770, 
+        category: 'mix',
+        image: 'assets/nuts-mix.jpg',
+        emoji: '🥗',
+        weights: ['1 кг']
+    },
 ];
 
 const categories = [
@@ -138,10 +338,12 @@ function selectWeight(btn, productId, weight) {
 }
 
 function getPriceForWeight(product, weight) {
-    if (weight === '500 г') {
-        return Math.round(product.price / 2);
-    }
-    return product.price;
+    // Извлекаем число из строки веса (например, "100 г" → 100)
+    const weightNum = parseInt(weight);
+    
+    // Рассчитываем цену пропорционально весу
+    // Цена в product.price — это цена за 1 кг (1000 г)
+    return Math.round((product.price * weightNum) / 1000);
 }
 
 function addToCart(productId) {
