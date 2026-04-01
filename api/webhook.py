@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-TOKEN = 'f9L...ew5'  # Твой полный токен
+TOKEN = 'f9LHodD0cOLOZI8Ch2Q7MszISpH1nlj_MHzijGbHpu0cJULDfQhezUL6_33YwQheq3AmcOOSWfqiABnK2ew5'  # Твой полный токен
 WEB_APP_URL = 'https://atoez.github.io/orehizakazi/'
 API_URL = 'https://platform-api.max.ru'
 
