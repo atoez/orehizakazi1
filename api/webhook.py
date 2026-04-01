@@ -4,40 +4,37 @@ import os
 
 app = Flask(__name__)
 
-# 🔐 ВСТАВЬ СЮДА СВОЙ ПОЛНЫЙ ТОКЕН
 TOKEN = 'f9LHodD0cOLOZI8Ch2Q7MszISpH1nlj_MHzijGbHpu0cJULDfQhezUL6_33YwQheq3AmcOOSWfqiABnK2ew55'
 WEB_APP_URL = 'https://atoez.github.io/orehizakazi/'
 API_URL = 'https://platform-api.max.ru'
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    try:
-        data = request.json
-        print(f"Получено событие: {data}")
+    data = request.json
+    print(f"=== WEBHOOK ПОЛУЧЕН ===")
+    print(f"Событие: {data}")
+    
+    if data.get('type') == 'bot_started':
+        user_id = data['payload']['user_id']
+        print(f"Бот запущен пользователем: {user_id}")
+        send_welcome(user_id)
+    
+    elif data.get('type') == 'message_created':
+        user_id = data['payload']['user_id']
+        text = data['payload'].get('text', '')
+        print(f"Сообщение от {user_id}: {text}")
         
-        # Событие когда пользователь нажал старт
-        if data.get('type') == 'bot_started':
-            user_id = data['payload']['user_id']
+        if text == '/start':
             send_welcome(user_id)
-        
-        # Событие когда пользователь написал сообщение
-        elif data.get('type') == 'message_created':
-            user_id = data['payload']['user_id']
-            text = data['payload'].get('text', '')
-            
-            if text == '/start':
-                send_welcome(user_id)
-        
-        return jsonify({'success': True})
-    except Exception as e:
-        print(f"Ошибка в webhook: {e}")
-        return jsonify({'error': str(e)}), 500
+    
+    return jsonify({'success': True})
 
 def send_welcome(user_id):
-    try:
-        url = f'{API_URL}/messages?user_id={user_id}'
-        
-        message = """🥜 Добро пожаловать в «Сладкий уголок»!
+    print(f"Отправляем приветствие пользователю {user_id}")
+    
+    url = f'{API_URL}/messages'
+    
+    message = """🥜 Добро пожаловать в «Сладкий уголок»!
 
 🌰 Орехи, сухофрукты и сладости в Кирове
 🚚 Доставка за 24 часа
@@ -45,35 +42,31 @@ def send_welcome(user_id):
 
 👇 Нажмите кнопку чтобы открыть каталог:
 """
-        
-        data = {
-            'text': message,
-            'attachments': [{
-                'type': 'inline_keyboard',
-                'payload': {
-                    'buttons': [[{
-                        'type': 'web_app',
-                        'text': '🛒 Открыть каталог',
-                        'url': WEB_APP_URL
-                    }]]
-                }
-            }]
-        }
-        
-        headers = {
-            'Authorization': TOKEN,
-            'Content-Type': 'application/json'
-        }
-        
-        response = requests.post(url, json=data, headers=headers, timeout=10)
-        print(f"Ответ API: {response.status_code} - {response.text}")
-    except Exception as e:
-        print(f"Ошибка отправки: {e}")
+    
+    data = {
+        'user_id': user_id,
+        'text': message,
+        'attachments': [{
+            'type': 'inline_keyboard',
+            'payload': {
+                'buttons': [[{
+                    'type': 'web_app',
+                    'text': '🛒 Открыть каталог',
+                    'url': WEB_APP_URL
+                }]]
+            }
+        }]
+    }
+    
+    headers = {
+        'Authorization': TOKEN,
+        'Content-Type': 'application/json'
+    }
+    
+    print(f"Отправляем запрос на: {url}")
+    response = requests.post(url, json=data, headers=headers, timeout=10)
+    print(f"Ответ API: {response.status_code} - {response.text}")
 
 @app.route('/')
 def index():
     return 'Бот работает! ✅'
-
-# ❌ УДАЛИ ЭТОТ БЛОК (не нужен на Render):
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
